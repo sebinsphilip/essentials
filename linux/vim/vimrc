@@ -1,0 +1,129 @@
+syntax enable                                                                  
+set hls 
+set autoindent
+"Pathogen
+"execute pathogen#infect()
+"Syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"end Syntastic
+set cindent 
+"set cc=80
+let &colorcolumn="80,".join(range(120,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+colorscheme badwolf 
+"set tag=/home/allgo/EAGLE/race/frameworks/tags
+"set tag=/home/allgo/EAGLE/device-manager/tags
+set tag=/home/allgo/EAGLE/usb-manager/tags
+set lines=999 columns=999
+set nocompatible 
+set noswapfile
+set smartcase
+
+set expandtab "convert <TAB> -> <SPACE> 
+set shiftwidth=4
+set softtabstop=4 "No.of spaces for a tab while editing
+let c_space_errors=1 
+set filetype=c 
+
+set number "Show line no.
+set showcmd "Show last cmd at the bottom
+set cursorline "Highlight current line
+
+filetype indent on 
+set wildmenu "Visual autocomplete for cmd menu
+set lazyredraw "Only redraw when we need to
+set showmatch "Highlight matching {[]}
+set incsearch "Searches as characters are entered
+set hlsearch "Highlight search matches
+let mapleader=',' 
+nnoremap <ESC> :nohls<CR>
+
+"FOLD
+set foldenable
+set foldlevelstart=10 
+set foldnestmax=10 
+"Toggle open or close fold
+nnoremap <Space> za
+set foldmethod=manual
+"au BufWinLeave * mkview "save current fold while exiting
+"au BufWinEnter * silent loadview "load saved fold 
+
+"Removes Unwanted white space from any c or cpp source file or h header file.
+autocmd BufWritePre     *.cpp :%s/\s\+$//e
+autocmd BufWritePre     *.c :%s/\s\+$//e
+autocmd BufWritePre     *.h :%s/\s\+$//e 
+
+"MOVEMENT
+nnoremap j gj
+nnoremap k gk
+nnoremap a ^
+"nnoremap e $
+"nnoremap $ <nop>
+"nnoremap ^ <nop>
+"nnoremap gV `[v`]
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Function:  CommentCBlock
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""'""""""""""
+let g:Author='Sebin S Philip' 
+fu! CommentCBlock() range
+	let l:firstln = a:firstline
+	let l:lastln = a:lastline
+	exec l:firstln
+	silent put!='#if 0 /* ' .g:Author . ' ' . strftime ('%C') . ' */'
+	exec l:lastln+1
+	silent put='#endif'
+endf
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Function:		UnCommentCBlock
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+fu! UnCommentCBlock() range
+	let l:firstln = a:firstline
+	let l:lastln = a:lastline
+	exec l:lastln . 'd'
+	exec l:firstln . 'd'
+endf
+
+vmap .c :call CommentCBlock() <CR>
+vmap .C :call UnCommentCBlock() <CR>
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
+"source $VIMRUNTIME/mswin.vim
+"behave mswin
+
+" backspace and cursor keys wrap to previous/next line
+" set backspace=indent,eol,start whichwrap+=<,>,[,]
+
+"au BufNewFile,BufRead *.py
+"    \ set tabstop=4
+"    \ set softtabstop=4
+"    \ set shiftwidth=4
+"    \ set textwidth=79
+"    \ set expandtab
+"    \ set autoindent
+"    \ set fileformat=unix
+"    \ let python_highlight_all=1
+"    \ syntax on
+"set winheight=999
+"set winminheight=0
+"noremap <C-O> <C-W>k<C-W>_
+"noremap <C-P> <C-W>j<C-W>_
+
+
+"nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
+
+
+"open tags in new tab
+"nnoremap <C-l> :tabnew %<CR>g<C-]>
+"vnoremap <C-l> <Esc>:tabnew %<CR>gvg<C-]>
+
