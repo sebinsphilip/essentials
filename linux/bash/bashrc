@@ -66,3 +66,14 @@ export BROWSER="firefox '%s' &"
 #Boost libs
 export BOOST_ROOT=${HOME}/Phoenix/WAMP/boost_1_63_0
 export LD_LIBRARY_PATH=${BOOST_ROOT}/stage/lib:${BOOST_ROOT}/libs:${LD_LIBRARY_PATH}
+
+# change bash title from terminal: usage: $stitle <title_for_terminal>
+function stitle(){
+ if [ -z "$PS1_BACK" ];  # set backup if it is empty
+ then
+  PS1_BACK="$PS1"
+ fi
+
+ TITLE="\[\e]0;$*\a\]"
+ PS1="${PS1_BACK}${TITLE}"
+}
